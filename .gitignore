@@ -1,0 +1,43 @@
+# LaTeX intermediate files
+*.aux
+*.bbl
+*.blg
+*.brf
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.lot
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+
+# Generated PDFs (optional)
+*.pdf
+
+# Miscellaneous
+*.nav
+*.snm
+*.vrb
+*.xdv
+
+# Glossaries
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.ist
+
+# latexmk / lualatex / xelatex intermediates
+*.run.xml
+*.bcf
+
+# Other editors
+*~ 
+*.bak
