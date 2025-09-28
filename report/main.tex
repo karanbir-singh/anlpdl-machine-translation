@@ -496,4 +496,17 @@ I'm not going to describe line per line what the \texttt{decode()} function does
 \label{tab:results}
 \end{table}
 
+As written in the assignment, it's hard to completely replicate the paper's results, but I've managed to reach good results.
+
+I can confirm the paper's claim that HFT can outperform BPE:
+\begin{itemize}
+    \item DSB→HSB: 70.8 vs 68.9 (+1.9 BLEU)
+    \item HSB→DSB: 68.3 vs 67.7 (+0.6 BLEU)
+\end{itemize}
+
+I have successfully replicated the HFT tokenization algorithm, even if not completely the same, validating the paper's central finding that it outperforms BPE. My implementation achieves over 99\% of the paper's reported performance in one translation direction and over 98\% in the other, demonstrating the robustness and effectiveness of both the algorithm and my implementation.
+
+I would say that it was not easy to implement HFT following the steps described in the paper, and since it's a greedy algorithm, it took more time for learning the vocabulary and for encoding texts. 
+
+However, this may be led by how optimized my code is.
 \end{document}
