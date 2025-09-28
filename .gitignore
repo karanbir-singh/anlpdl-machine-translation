@@ -41,3 +41,6 @@
 # Other editors
 *~ 
 *.bak
+
+_minted-main
+.DS_Store

@@ -124,7 +124,9 @@ Now, we can train the model running this command:
 
 \vspace{0.2cm}
 \texttt{
-fairseq-train dsb-to-hsb --arch transformer --encoder-layers 5 --decoder-layers 5 --encoder-ffn-embed-dim 1024 --decoder-ffn-embed-dim 1024 --encoder-attention-heads 2 --decoder-attention-heads 2 --dropout 0.3 --attention-dropout 0.3 --activation-dropout 0.3 --encoder-layerdrop 0.1 --decoder-layerdrop 0.1 --optimizer adam --clip-norm 1.0 --lr 0.0005 --lr-scheduler inverse\_sqrt --criterion label\_smoothed\_cross\_entropy --label-smoothing 0.5 --max-tokens 4096 --save-dir ./dsb-to-hsb/t-opt-bpe/checkpoints --patience 10}
+fairseq-train dsb-to-hsb --arch transformer --encoder-layers 5 --decoder-layers 5 --encoder-ffn-embed-dim 1024 --decoder-ffn-embed-dim 1024 --encoder-attention-heads 2 --decoder-attention-heads 2 --dropout 0.3 --attention-dropout 0.3 --activation-dropout 0.3 --encoder-layerdrop 0.1 --decoder-layerdrop 0.1 --optimizer adam --clip-norm 1.0 --lr 0.0005 --lr-scheduler inverse\_sqrt --criterion label\_smoothed\_cross\_entropy --label-smoothing 0.5 --max-tokens 4096}
+
+\texttt{ --save-dir ./dsb-to-hsb/t-opt-bpe/checkpoints --patience 10}
 
 \newpage
 
@@ -339,7 +341,8 @@ def encode(self, text: str) -> List[str]:
             text (str): text that needs to be encoded
 
         Returns:
-            List[str]: list of subwords and delimiters (the encoded text). Example: "↑ tam ¦ pśe póda jo ¦ koncer n ¦ tak ¦ pomjen jony ¦ awto ¦ ."
+            List[str]: list of subwords and delimiters (the encoded text). 
+            Example: "↑ tam ¦ pśe póda jo ¦ koncer n ¦ tak ¦ pomjen jony ¦ awto ¦ ."
         """
         # Split into words and non-words and mantain whitespaces
         tokens = re.findall(r'\w+|[^\w\s]|\s+', text)
@@ -411,26 +414,28 @@ def decode(self, encoded_text: str) -> str:
         Decode tokens back into text by reversing markers.
 
         Args:
-            encoded_text (str): text to decode. Example: "↑tam¦pśepódajo¦koncern¦tak¦pomjenjony¦awto¦."
+            encoded_text (str): text to decode. 
+            Example: "↑tam¦pśepódajo¦koncern¦tak¦pomjenjony¦awto¦."
 
         Returns:
-            str: decoded text, without delimiters and other special characters used for tokenization
+            str: decoded text, without delimiters and 
+                 other special characters used for tokenization
         """
         result = []
         
         i = 0
-        while i < len(encoded_text): # ↑tam jo koncern pśepódał tak pomjenjony awto .
+        while i < len(encoded_text):
             token = encoded_text[i]
             i += 1
             
-            # The token delimeter is equal to have a whitespace (even if it's not totally correct, but it works well)
+
+            # The token delimeter is equal to have a whitespace 
+            # (even if it's not totally correct, but it works well)
             if token == TOKEN_DELIM:
                 result.append(' ')
                 
             elif token == ALL_UPPER:
                 uppercase_buffer = []
-
-
                 
                 # Save token's characaters in the uppercase buffer
                 while i < len(encoded_text) and encoded_text[i] != END_UPPER:
@@ -471,6 +476,7 @@ def decode(self, encoded_text: str) -> str:
 
 I'm not going to describe line per line what the \texttt{decode()} function does: simply it takes the encoded text, removes delimiters and builds the original text.
 
+\vspace{0.2cm}
 {\centering
     \texttt{"$\uparrow$h ell o¦$\triangledown$wor l d$\vartriangle$¦ !" $\rightarrow$ "Hello WORLD!"}
     \par}
